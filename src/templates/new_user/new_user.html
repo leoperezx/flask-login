@@ -1,6 +1,6 @@
 {% extends './base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}New User{% endblock %}
 
 {% block CustomCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
@@ -24,21 +24,27 @@
         {% endwith %}
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
+        <div class="form-floating">
+            <input type="email" class="form-control" id="email" name="email" placeholder="username@example.com">
+            <label for="floatingInput">Email</label>
+        </div>
+    
         <div class="form-floating">
             <input type="text" class="form-control" id="username" name="username" placeholder="Username">
             <label for="floatingInput">Username</label>
         </div>
+
         <div class="form-floating">
             <input type="password" class="form-control" name="password" placeholder="Password">
             <label for="floatingPassword">Password</label>
         </div>
 
-        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-        <br/>
-        <div class="form-floating space"> 
-            <a class="btn btn-secondary w-100 py-2" href="{{ url_for('new_user') }}">Sign up</a>
+        <div class="form-floating">
+            <input type="password" class="form-control" name="confir_password" placeholder="Confir password">
+            <label for="floatingPassword">Confir password</label>
         </div>
-       
+        <button class="btn btn-secondary w-100 py-2" type="submit">Sign up</button>
         
     </form>
 </div>

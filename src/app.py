@@ -26,8 +26,7 @@ def index():
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method=='POST':
-        # print(request.form['username'])
-        # print(request.form['password'])
+        
         user = User(0, request.form['username'], request.form['password'])
         logged_user = ModelUser.login(db,user)
         if logged_user != None:
@@ -43,6 +42,11 @@ def login():
         
     else: 
         return render_template('auth/login.html')
+
+
+@app.route('/new_user')
+def new_user():
+    return render_template('new_user/new_user.html')
     
 @app.route('/logout')
 def logout():
@@ -66,9 +70,14 @@ def status_404(error):
     return "<h1>Página no encontrada.</h1>",  404
 
 if __name__=='__main__':
-    app.config.from_object(config['development'])
+    # carga las configuraciones para el servidor y para la base de datos que provienen del archivo "config.py"
+    app.config.from_object(config['development']) 
+    # adición para la seguridad de la pagina
     csrf.init_app(app)
+    # redirección cuando intentan poner la ruta sin estar "logged"
     app.register_error_handler(401,status_401)
+    # mensaje de error cuando no existe la ruta (ejecuta la funcion "status_404(error)" )
     app.register_error_handler(404,status_404)
+    # lanza o inicia la app
     app.run()
      
